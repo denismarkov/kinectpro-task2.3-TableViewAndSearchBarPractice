@@ -9,27 +9,28 @@
 import UIKit
 
 class RestaurantDetailViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBOutlet weak var restaurantImage: UIImageView!
+    
+    @IBOutlet weak var restaurantName: UILabel!
+    
+    @IBOutlet weak var restaurantAdress: UILabel!
+    
+    var restaurantDetails : RestaurantModel?
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initOutlets()
     }
-    */
+    
+    func initOutlets() {
+        restaurantImage.image = UIImage(named: restaurantDetails?.imageName ?? "Restaurant Images/restaurant1")
+        restaurantImage.layer.cornerRadius = 8.0
+        restaurantName.text = restaurantDetails?.header ?? "Default restaurant name"
+        restaurantAdress.text = restaurantDetails?.adress ?? "Default restaurant adress"
+    }
+    
 
 }

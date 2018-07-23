@@ -9,16 +9,17 @@
 import UIKit
 
 class MainTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    @IBOutlet weak var restaurantImage: UIImageView!
+    
+    @IBOutlet weak var restaurantName: UILabel!
+    
+    @IBOutlet weak var restaurantAdress: UILabel!
+    
+    func initCell(_ image: String?, name: String?, adress: String?) {
+        restaurantImage.image = UIImage(named: image ?? "Restaurant Images/restaurant1")
+        restaurantImage.layer.cornerRadius = 8.0
+        restaurantName.text = name ?? "Default restaurant name"
+        restaurantAdress.text = adress ?? "Default restaurant adress"
+    }
 }

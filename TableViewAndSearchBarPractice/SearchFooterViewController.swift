@@ -8,28 +8,67 @@
 
 import UIKit
 
-class SearchFooterViewController: UIViewController {
+class SearchFooterViewController: UIView {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    let label: UILabel = UILabel()
+    
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        configureView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    required public init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureView()
     }
-    */
+    
+    func configureView() {
+        self.backgroundColor = UIColor.red
+        self.alpha = 0.0
+        
+        // Configure label
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        addSubview(label)
+    }
+    
+    override func draw(_ rect: CGRect) {
+        label.frame = self.bounds
+    }
+    
+    //MARK: - Animation
+    
+    fileprivate func hideFooter() {
+        UIView.animate(withDuration: 0.7) {[unowned self] in
+            self.alpha = 0.0
+        }
+    }
+    
+    fileprivate func showFooter() {
+        UIView.animate(withDuration: 0.7) {[unowned self] in
+            self.alpha = 1.0
+        }
+    }
+}
+
+extension SearchFooterViewController {
+    //MARK: - Public API
+    
+    public func setNotFiltering() {
+        label.text = ""
+        hideFooter()
+    }
+    
+    public func setIsFilteringToShow(filteredItemCount: Int, of totalItemCount: Int) {
+        if (filteredItemCount == totalItemCount) {
+            setNotFiltering()
+        } else if (filteredItemCount == 0) {
+            label.text = "No items match your query"
+            showFooter()
+        } else {
+            label.text = "Filtering \(filteredItemCount) of \(totalItemCount)"
+            showFooter()
+        }
+    }
 
 }
